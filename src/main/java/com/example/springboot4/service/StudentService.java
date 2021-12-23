@@ -43,4 +43,9 @@ public class StudentService implements IStudentService {
     public Iterable<Student> findAllByOrderByScoreAsc() {
         return iStudentRepository.findAllByOrderByScoreAsc();
     }
+
+    @Override
+    public Iterable<Student> findByScoreGreaterThanEqual(int score) {
+        return iStudentRepository.findByScoreGreaterThanEqual(score);
+    }
 }

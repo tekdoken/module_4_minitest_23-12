@@ -53,5 +53,14 @@ public class StudentController {
         iStudentService.save(student);
         return "redirect:/";
     }
+
+    @GetMapping("score8")
+    public String sc8(Model model) {
+        Iterable<Student> studentPage;
+        studentPage = iStudentService.findByScoreGreaterThanEqual(8);
+        model.addAttribute("back","back");
+        model.addAttribute("students", studentPage);
+        return "list";
+    }
 }
 

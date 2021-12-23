@@ -9,4 +9,5 @@ public interface IStudentRepository extends JpaRepository <Student,Long> {
 //    Page<Student> findAll(Pageable pageable);
     Iterable<Student> findByNameContaining(String name);
     Iterable<Student> findAllByOrderByScoreAsc();
+    Iterable<Student> findByScoreGreaterThanEqual(int score);
 }
