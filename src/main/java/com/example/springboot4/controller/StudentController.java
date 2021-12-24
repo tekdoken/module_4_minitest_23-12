@@ -55,7 +55,7 @@ public class StudentController {
     }
 
     @GetMapping("score8")
-    public String sc8(Model model) {
+    public String ScoreGreater8(Model model) {
         Iterable<Student> studentPage;
         studentPage = iStudentService.findByScoreGreaterThanEqual(8);
         model.addAttribute("back","back");
