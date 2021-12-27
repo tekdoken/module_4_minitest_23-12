@@ -30,7 +30,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public void remote(Long id) {
-
+        iStudentRepository.deleteById(id);
     }
 
 
