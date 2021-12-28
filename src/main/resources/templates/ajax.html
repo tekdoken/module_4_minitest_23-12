@@ -19,18 +19,20 @@
         function displayStudentName(array) {
             let list = ""
             for (let i = 0; i < array.length; i++) {
-                list += array[i].name + " " + array[i].classz.name + "<br>"
-                document.getElementById("liststudent").innerHTML = list
+                list += array[i].name + " " + array[i].classz.name +
+                    "<button onclick='showFormEdit("+array[i].id+")'>edit</button>"
+                    console.log()
+                    + "<br>"
             }
+            document.getElementById("liststudent").innerHTML = list
         }
 
         function showFormAdd() {
             let form = '<input type="text" id="name">\n' +
-                '<input type="text" id="age">\n' +
-                '<input type="text" id="score">\n' +
+                '<input type="number" id="age">\n' +
+                '<input type="number" id="score">\n' +
                 '<select id="classz" >\n' +
                 '    <option value="1" >c1</option>\n' +
-                '    <option value="2" >c2</option>\n' +
                 '</select>\n' +
                 '<button onclick="save()">save</button>';
             document.getElementById("liststudent").innerHTML = form;
@@ -60,9 +62,20 @@
                 data: JSON.stringify(a)
             });
         }
-        function editForm(){
 
+        function showFormEdit(id) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/students/findById/" + id,
+                success: function (data) {
+                    document.getElementById("liststudent").innerHTML = '<input type="text"  id="name" value="' + data.name + '">\n' +
+                        '    <input type="number"  id="age" value="' + data.age + '">\n' +
+                        '    <input type="number"  id="score" value="' + data.score + '">\n' +
+                        '    <button onclick="saveEdit(' + data.id + ')">Save</button>'
+                }
+            })
         }
+
     </script>
 </head>
 <body>

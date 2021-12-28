@@ -31,13 +31,12 @@ public class StudentRestController {
         Iterable<Student> students = iStudentService.findAll();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<Optional<Student>> s(@PathVariable Long id) {
-        Optional<Student> students = iStudentService.findById(id);
-        return new ResponseEntity<>(students, HttpStatus.OK);
+        return new ResponseEntity<>(iStudentService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Optional<Student>> edit(@PathVariable Long id, @RequestBody Student student) {
         Optional<Student> studentOptional = iStudentService.findById(id);
         student.setId(studentOptional.get().getId());
@@ -50,7 +49,7 @@ public class StudentRestController {
        iStudentService.save(student);
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Student> delete(@PathVariable Long id){
         iStudentService.remote(id);
         return new ResponseEntity<>(HttpStatus.OK);
