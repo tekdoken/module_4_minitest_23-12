@@ -18,7 +18,9 @@
         function displayStudent(array) {
             let list = ""
             for (let i = 0; i < array.length; i++) {
-                list += array[i].name + " " + array[i].classz.name +
+                list += array[i].name + " " +
+                array[i].age + " "+
+                array[i].score + " " + array[i].classz.name +
                     "<button onclick='showFormEdit(" + array[i].id + ")'>edit</button>" +
                     "<button onclick='remote (" + array[i].id + ")'>delete</button>"
                     + "<br>"
@@ -55,7 +57,15 @@
             })
             console.log(form)
         }
-
+        function showOrder() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/students/OrderAge",
+                success: function (a) {
+                    displayStudent(a)
+                }
+            })
+        }
         function save() {
             let name = document.getElementById("name").value
             let score = document.getElementById("score").value
@@ -76,7 +86,10 @@
                 },
                 type: "POST",
                 url: "http://localhost:8080/api/students/cre",
-                data: JSON.stringify(a)
+                data: JSON.stringify(a),
+                success: function (a) {
+                    displayStudent(a)
+                }
             });
         }
 
@@ -129,7 +142,10 @@
                 },
                 type: "PUT",
                 url: "http://localhost:8080/api/students/edit/" + id,
-                data: JSON.stringify(a)
+                data: JSON.stringify(a),
+                success: function (a) {
+                    displayStudent(a)
+                }
             });
         }
 
@@ -148,6 +164,7 @@
 <body>
 <button onclick="getAllStudent()">show list</button>
 <button onclick="showFormAdd()">add</button>
+<button onclick="showOrder()">add</button>
 
 <input id="key" type="text">
 <button onclick="search()">find</button>

@@ -30,7 +30,7 @@ public class StudentController {
     public String list(Model model, String search) {
         Iterable<Student> studentPage = null;
         if (search == null) {
-            studentPage = iStudentService.findAllByOrderByScoreAsc();
+            studentPage = iStudentService.findAll();
         } else {
             studentPage = iStudentService.findByNameContaining(search);
         }

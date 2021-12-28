@@ -69,4 +69,9 @@ public class StudentRestController {
         Iterable<Student> students= iStudentService.findByNameContaining(key);
         return new ResponseEntity<>(students,HttpStatus.OK);
     }
+    @GetMapping("/OrderAge")
+    public ResponseEntity<Iterable<Student>> listOrderAge() {
+        Iterable<Student> students = iStudentService.findAllByOrderByAgeAsc();
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
 }
