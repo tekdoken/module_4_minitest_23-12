@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/students")
 public class StudentController {
     @Autowired
     IStudentService iStudentService;

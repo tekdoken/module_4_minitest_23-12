@@ -16,8 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
-
 @RestController
+@CrossOrigin("*")
+@RequestMapping("/api/students")
 public class StudentRestController {
     @Autowired
     IStudentService iStudentService;
@@ -25,7 +26,7 @@ public class StudentRestController {
     IClasszService iClasszService;
 
 
-    @GetMapping("/students")
+    @GetMapping("/list")
     public ResponseEntity<Iterable<Student>> list() {
         Iterable<Student> students = iStudentService.findAll();
         return new ResponseEntity<>(students, HttpStatus.OK);
@@ -53,5 +54,10 @@ public class StudentRestController {
     public ResponseEntity<Student> delete(@PathVariable Long id){
         iStudentService.remote(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/sc8")
+    public ResponseEntity<Iterable<Student>> ScoreGreater8(){
+        Iterable<Student> students = iStudentService.findByScoreGreaterThanEqual(8);
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }

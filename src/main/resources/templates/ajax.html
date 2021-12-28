@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function getAllClass() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/students/list",
+                success: function (a) {
+                    console.log(a)
+                    displayClassName(a)
+                }
+            })
+        }
+
+        function displayClassName(array) {
+            let list = ""
+            for (let i = 0; i < array.length; i++) {
+                list += array[i].name + " " + array[i].classz.name + "<br>"
+                document.getElementById("liststudent").innerHTML = list
+            }
+        }
+
+        function showFormAdd() {
+            let form = '<input type="text" id="name">\n' +
+                '<input type="text" id="age">\n' +
+                '<input type="text" id="score">\n' +
+                '<select id="classz" >\n' +
+                '    <option value="1" >c1</option>\n' +
+                '    <option value="2" >c2</option>\n' +
+                '</select>\n' +
+                '<button onclick="save()">save</button>';
+            document.getElementById("liststudent").innerHTML = form;
+        }
+
+        function save() {
+            let name = document.getElementById("name").value
+            let score = document.getElementById("score").value
+            let age = document.getElementById("age").value
+            let classz = document.getElementById("classz").value
+            let a = {
+                name: name,
+                score: score,
+                age: age,
+                classz: classz
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                url: "http://localhost:8080/api/students/cre",
+                data: JSON.stringify(a)
+            });
+        }
+    </script>
+</head>
+<body>
+<button onclick="getAllClass()">show list</button>
+<button onclick="showFormAdd()">add</button>
+<div id="liststudent"></div>
+
+</body>
+</html>
