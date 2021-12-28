@@ -31,6 +31,11 @@ public class StudentRestController {
         Iterable<Student> students = iStudentService.findAll();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
+    @GetMapping("/listClass")
+    public ResponseEntity<Iterable<Classz>> listClass() {
+        Iterable<Classz> students = iClasszService.findAll();
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
     @GetMapping("/findById/{id}")
     public ResponseEntity<Optional<Student>> s(@PathVariable Long id) {
         return new ResponseEntity<>(iStudentService.findById(id), HttpStatus.OK);
@@ -58,5 +63,10 @@ public class StudentRestController {
     public ResponseEntity<Iterable<Student>> ScoreGreater8(){
         Iterable<Student> students = iStudentService.findByScoreGreaterThanEqual(8);
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+    @GetMapping("findByName/{key}")
+    public ResponseEntity<Iterable<Student>> findByName(@PathVariable String key){
+        Iterable<Student> students= iStudentService.findByNameContaining(key);
+        return new ResponseEntity<>(students,HttpStatus.OK);
     }
 }
