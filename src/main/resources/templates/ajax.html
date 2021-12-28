@@ -5,18 +5,18 @@
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript">
-        function getAllClass() {
+        function getAllStudent() {
             $.ajax({
                 type: "GET",
                 url: "http://localhost:8080/api/students/list",
                 success: function (a) {
                     console.log(a)
-                    displayClassName(a)
+                    displayStudentName(a)
                 }
             })
         }
 
-        function displayClassName(array) {
+        function displayStudentName(array) {
             let list = ""
             for (let i = 0; i < array.length; i++) {
                 list += array[i].name + " " + array[i].classz.name + "<br>"
@@ -34,6 +34,7 @@
                 '</select>\n' +
                 '<button onclick="save()">save</button>';
             document.getElementById("liststudent").innerHTML = form;
+            console.log(form)
         }
 
         function save() {
@@ -45,7 +46,9 @@
                 name: name,
                 score: score,
                 age: age,
-                classz: classz
+                classz: {
+                    id: classz
+                }
             }
             $.ajax({
                 headers: {
@@ -57,10 +60,13 @@
                 data: JSON.stringify(a)
             });
         }
+        function editForm(){
+
+        }
     </script>
 </head>
 <body>
-<button onclick="getAllClass()">show list</button>
+<button onclick="getAllStudent()">show list</button>
 <button onclick="showFormAdd()">add</button>
 <div id="liststudent"></div>
 
